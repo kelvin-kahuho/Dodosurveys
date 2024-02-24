@@ -1,0 +1,29 @@
+{% extends 'main.html' %}
+{% block content %}
+
+<div class="dashboard-container">
+    <h1>User Profile</h1>
+
+    {% if user %}
+    <div class="user-details">
+
+        <strong>Name: {{ user[1]}}</strong><br>
+        <strong>Email: {{ user[2] }}</strong><br> 
+        <strong>Phone: {{ user[3] }}</strong><br>
+        
+        {% else %}
+            <p>User not found.</p>
+        {% endif %}
+
+    </div>
+    <div class="action-buttons">
+        <button class="button1" onclick="location.href='/change_password'">Change Password</button>
+        <button class="button1" onclick="location.href='/change_email'">Change Email</button>
+        <button class="button1" onclick="location.href='/delete_account'">Delete Account</button>
+    </div>
+
+</div>
+
+
+
+{% endblock content %}

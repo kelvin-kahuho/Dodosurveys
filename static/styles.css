@@ -1,0 +1,422 @@
+/* Universal Styles */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url("/static/dodo_bg.png");
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+/* Main.html styling*/
+/* Logged In User Page Styles */
+.main {
+    padding: 0;
+    margin: 0;
+}
+
+.header {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 70px;
+    padding-left: 50px;
+    padding-right: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 100;
+    background:white;
+    border-bottom: #feea79 solid 2px;
+    border-radius: 0 0 5px 5px;
+}
+
+.logo img {
+    margin-top:10px;
+    width: 100%;
+    max-width: 120px;
+    height: auto;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar a {
+    font-size: 14px;
+    color: #000000;
+    font-weight: 300;
+    text-decoration: none;
+    padding: 20px;
+}
+.menu-icon{
+    display: none;
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 1000px) {
+    .header {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .navbar {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 50px;
+        left: 0;
+        width: 100%;
+        background: white;
+        border-bottom: #feea79 solid 2px;
+        border-radius: 0 0 5px 5px;
+    }
+
+    .navbar a {
+        padding: 15px;
+    }
+
+    .navbar.show {
+        display: flex;
+    }
+
+    /* Hamburger menu icon */
+    .menu-icon {
+        display: block;
+        cursor: pointer;
+    }
+
+    .menu-icon img {
+        width: 30px;
+        height: auto;
+    }
+}
+
+/* Home Page Styles */
+.home{
+    margin-top: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.home img{
+    border-radius: 10px;
+    width: 100vw;
+    height: 100vh;
+}
+
+.home h1{
+    text-align: center;
+    color: #0066cc;
+}
+.home p{
+    text-align: center;
+}
+.section-2{
+    display: flex;
+    flex-direction: column;
+    color: #104179;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+}
+
+.section-2 h1{
+    text-align: center;
+    padding: auto;
+}
+
+.info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.info img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+.info section {
+    width: 100%;
+    max-width: 300px;
+    margin: 20px;
+    padding: 20px;
+    border: solid #feea79 2px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* About Us Page styling */
+.about-us-container {
+    display: flex;
+    margin: 10%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-us-container h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.about-us-container p {
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Image styling */
+.about-us-container img {
+    max-width: 50%;
+    height: 50%;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+
+/* FAQ Page Styles */
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    margin:10%;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.faq-container h1 {
+    text-align: center;
+    color: #333;
+}
+
+.faq-item {
+    margin-bottom: 20px;
+}
+
+.faq-container h3 {
+    color: #0066cc;
+}
+
+.faq-container p {
+    color: #444;
+}
+
+/* Sign-up Page Styles */
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container img {
+    width: 100%;
+    max-width: 150px;
+    height: auto;
+}
+
+.form {
+    width: 100%;
+    max-width: 350px;
+    margin: 20px;
+    padding: 20px;
+    border: solid #feea79 1px;
+    padding: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form h1, .form h3, .form h2 {
+    text-align: left;
+    color: #173e5e;
+    margin: 20px 0;
+}
+
+.form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid #feea79 1px;
+}
+
+.form button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #BDF347;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
+    color: rgb(0, 0, 0);
+}
+
+
+/* Survey Page Styles */
+.survey {
+    display: flex;
+    flex-direction: column;
+    margin:10%;
+    border: solid #feea79 1px;
+    padding: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    border-radius: 10px;
+}
+.survey h1, .survey h2, .survey h3 {
+    text-align: center;
+    color: #173e5e;
+    margin: 15px;
+}
+
+.survey button {
+    width: 200px;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #BDF347;    border: none;
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+}
+
+.survey label, .survey textarea, .survey select, .survey input {
+    width: 80%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+/* Universal Button Styles */
+.button, .verified-button {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    max-width: 200px;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 10px;
+    background-color: #BDF347;
+    border-radius: 5px;
+}
+
+.button1 {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    width: 100px;
+    height: 50px;
+    padding: 10px;
+    font-size: small;
+    border: none;
+    border-radius: 10px;
+    background-color: #BDF347;
+    border-radius: 5px;
+}
+
+
+.verified-button {
+    background-color: lightgreen;
+}
+
+/* Admin Dashboard Styles */
+.dashboard-container {
+    margin: 10%;
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: solid #feea79 1px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* User Details Styles */
+.user-details-container {
+    margin-top: 150px;
+}
+
+.user-details {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.user-details img {
+    width: 100%;
+    max-width: 450px;
+    max-height: 200px;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+.user-details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.user-details-table th, .user-details-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.user-details-table th {
+    background-color: #f2f2f2;
+}
+/* Action buttons*/
+.action-buttons{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.action-buttons button{
+    margin: 10px;
+}
+/* Error*/
+.error {
+    color: red;
+    font-size: large;
+}
+
+/* Additional styling for user profile */
+.user-details {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Wallet styling */
+.wallet-details {
+    padding: 20px;
+    width: fit-content;
+    margin: 10%;
+    border: 2px solid #feea79;
+    border-radius: 5px;
+}
+
+.wallet-details h1{
+    text-align: center;
+    color: #a3d6ff;
+}
+
+.balance {
+    font-size: 30px;
+    color: #004aad;
+    font-weight: 800;
+}
+
+/* Payouts css */
+.payout {
+    margin: 10%;
+    color:#6400bd;
+
+}

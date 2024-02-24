@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dodosurveys</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png')}}">
+</head>
+<body>
+
+    <div class="main">
+
+
+        <div class="header">
+            <a href="/" class="logo">
+                <img src="{{ url_for('static', filename='logo.png') }}" alt="logo">
+            </a>
+    
+            <nav class="navbar">
+                <a href="/">Home</a>
+                <a href="{{ url_for('about')}}">About</a>
+                <a href="{{ url_for('FAQ')}}">FAQ</a>
+                <a href="{{ url_for('login')}}">Login</a>
+                <button class="button" onclick="location.href='/register'">Register Now</button>
+            </nav>
+            <div class="menu-icon">
+                <img src="{{ url_for('static', filename='hamburger_icon.png') }}" alt="Menu">
+            </div>
+        </div>
+
+
+        <div class="home">
+            <a href="{{ url_for('register')}}">
+                <img src="{{ url_for('static', filename='landing_page.png') }}" alt="logo">
+            </a>
+        </div>
+
+        <div class="section-2">
+
+            <h1>Follow Below Steps To Get Started</h1>
+
+
+            <div class="info">
+                <section>
+                    <img src="{{ url_for('static', filename= 'images/young-man-using-phone.png')}}" alt="people-using-phone">
+                    <h3>Signup for Free</h3>
+                    <p>Register with your email and Phone number and you will be ready to start.</p>
+                </section>
+    
+                <section>
+                    <img src="{{ url_for('static', filename= 'images/woman-using-phone.png')}}" alt="people-using-phone">
+                    <h3>Survey</h3>
+                    <p>Answer Our Survey Questions.</p>
+                </section>
+    
+                <section>
+                    <img src="{{ url_for('static', filename= 'images/counting-money.png')}}" alt="people-using-phone">
+                    <h3>Earn!</h3>
+                    <p>Verify Account Details and get paid <strong>15$!</strong></p>
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='index.js') }}"></script>
+    <!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+    (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/65bcab468d261e1b5f5b2d3a/1hlkfq3cj';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+    })();
+    </script>
+    <!--End of Tawk.to Script-->
+</body>
+</html>
