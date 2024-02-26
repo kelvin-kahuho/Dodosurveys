@@ -141,7 +141,7 @@ body {
 
 .info img {
     width: 100%;
-    max-width: 300px;
+    max-width: 200px;
     height: auto;
 }
 
@@ -231,7 +231,7 @@ body {
 
 .form {
     width: 100%;
-    max-width: 350px;
+    max-width: 400px;
     margin: 20px;
     padding: 20px;
     border: solid #feea79 1px;
@@ -419,4 +419,11 @@ body {
     margin: 10%;
     color:#6400bd;
 
+}
+
+
+/* Appointment booking page */
+
+.book_appointment {
+    margin-top: 10%;
 }
