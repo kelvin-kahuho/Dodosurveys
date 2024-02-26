@@ -1,0 +1,19 @@
+{% extends 'main.html' %}
+{% block content %}
+ <div class="container book_appointment">
+
+    <h3>Schedule an Appointment</h3>
+
+    <form action="/book_appointment" method="post" class="form">
+        <p class="error">{{ success }}</p>
+        <p class="error">{{ error }}</p>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+        <label for="time">Time:</label>
+        <input type="time" id="time" name="time" required>
+        <button type="submit">Book Appointment</button>
+    </form>
+ </div>
+
+
+{% endblock content %}
