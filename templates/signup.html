@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png')}}">
+
 
     <title>Sign up</title>
 </head>
@@ -28,9 +30,11 @@
             <input type="text" id="last_name" name="last_name" required>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-            <label for="phone_number">Phone Number (USA):</label>
-            <input type="tel" id="phone_number" name="phone_number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
-            <small>Format: xxx-xxx-xxxx</small>
+            <label for="phone_number">
+                Phone Number: &nbsp;
+                <img src="{{ url_for('static', filename='USA-Flag-icon.png') }}" alt="USA" title="United States" style="height: 35px; width: 35px; vertical-align: middle;">
+            </label>
+            <input type="tel" id="phone_number" name="phone_number" pattern="[+1]-[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder=" +1-xxx-xxx-xxxx" required>            
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" required>
             <small>Password must meet the following requirements:</small>
