@@ -4,6 +4,7 @@ import re
 import mysql.connector
 import hashlib
 import random
+from datetime import datetime, timedelta, time, date
 # Download the helper library from https://www.twilio.com/docs/python/install
 import os
 from twilio.rest import Client
@@ -21,7 +22,7 @@ def get_db_connection():
         host='localhost',
         user='root',
         password='heartattack2023',
-        database='opiniohive'
+        database='Dodosurveys'
     )
     return conn
 
@@ -91,7 +92,11 @@ def register():
             error = "Invalid phone number format. Please use the format xxx-xxx-xxxx."
             return render_template("signup.html", error=error)
         
-        phone_number = "".join(char for char in phone_number if char.isdigit())
+
+        state = request.form["state"]
+        city = request.form["city"]
+        
+        phone_number = "".join(char for char in phone_number if char.isdigit() or char == "+")
         password = request.form["password"]
         confirm_password = request.form["confirm_password"]
 
@@ -118,7 +123,7 @@ def register():
             if is_valid:
                 # Hash the password before storing it
                 hashed_password = hash_password(password)
-                cursor.execute("INSERT INTO users (name, email, phone_number, password) VALUES (%s, %s, %s, %s)", (full_name, email, phone_number, hashed_password))
+                cursor.execute("INSERT INTO users (name, email, phone_number, state, city, password) VALUES (%s, %s, %s, %s, %s, %s)", (full_name, email, phone_number, state, city, hashed_password))
                 db.commit()
 
                 # Get the user's ID
@@ -354,6 +359,10 @@ def dashboard():
         cursor.execute("SELECT * FROM users WHERE id=%s", (user_id,))
         user = cursor.fetchone()
 
+        #Getting appointment information
+        cursor.execute("SELECT * FROM appointments WHERE user_id=%s", (user_id,))
+        appointment = cursor.fetchall()
+
         # Checks if user has verified their phone number
         has_user_verified_their_phone = verify_phone_number()
         if not has_user_verified_their_phone:
@@ -361,22 +370,61 @@ def dashboard():
             phone_number=user[3]
             send_verification_code(phone_number)
             return render_template('verify_popup.html', user=user)
+        
+        elif not appointment:
+            return redirect(url_for("book_appointment"))
 
-        # Assuming user_id is the user ID you want to get the survey count for
-        cursor.execute("SELECT COUNT(*) FROM surveys WHERE user_id = %s", (user_id,))
-        survey_count = cursor.fetchone()[0]
 
-        if survey_count > 0:
-            average_satisfaction = random.randint(80, 85)
-
-            return render_template('dashboard.html', user=user, survey_count=survey_count,average_satisfaction=average_satisfaction )
         else:
-            return render_template('dashboard.html', user=user, survey_count=survey_count)
+            # Assuming user_id is the user ID you want to get the survey count for
+            cursor.execute("SELECT COUNT(*) FROM surveys WHERE user_id = %s", (user_id,))
+            survey_count = cursor.fetchone()[0]
+
+            if survey_count > 0:
+                average_satisfaction = random.randint(80, 85)
+
+                return render_template('dashboard.html', user=user, survey_count=survey_count,average_satisfaction=average_satisfaction )
+            else:
+                return render_template('dashboard.html', user=user, survey_count=survey_count)
     
     else:
         error ="User not logged in!"
         return render_template("login.html", error=error)
+    
+#Route to book appointment
+@app.route("/book_appointment", methods=['GET', 'POST'])
+def book_appointment():
+    if 'user_id' in session:
+        if request.method == 'POST':
+            user_id = session['user_id']
+            date =  datetime.strptime(request.form['date'], '%Y-%m-%d')
+            time = request.form["time"]
 
+            if date <= datetime.now():
+                error = "Selected Date is not valid."
+                return render_template("book_appointment.html", error=error)
+            
+            else:            
+                #get db connection
+                db= get_db_connection()
+                cursor= db.cursor()
+
+                # Create the SQL statement
+                sql = "INSERT INTO appointments (user_id, date, time) VALUES (%s, %s, %s, %s, %s)"
+
+                # Execute the query with form data
+                cursor.execute(sql, (user_id, date, time))
+                db.commit()
+
+                success = 'Appointment Booked Successfully'
+                return render_template('book_appointment.html', success=success)
+        
+        else:
+            return render_template('book_appointment.html')
+
+    else:
+        error ="User not logged in!"
+        return render_template("login.html", error=error)
 # Logout route
 @app.route("/logout")
 def logout():
