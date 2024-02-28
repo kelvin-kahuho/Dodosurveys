@@ -320,7 +320,32 @@ def change_password():
     else:
         error = "user not logged in"
         return render_template('login.html', error=error)
-  
+
+# Route to change Phone
+@app.route('/change_phone_number', methods=['GET', 'POST'])
+def change_phone_number():
+    if 'user_id' in session:
+        db = get_db_connection()
+        user_id = session['user_id']
+
+        if request.method == 'POST':
+            new_phone_number = request.form.get('new_phone_number')
+
+            cursor=db.cursor()
+            cursor.execute("UPDATE users SET phone_number = %s WHERE id = %s",(new_phone_number, user_id))
+            db.commit()
+            success= 'Phone_number changed successfully!'
+            print(success)
+            return redirect(url_for("dashboard"))
+
+            
+        else:
+            return render_template('change_phone_number.html')
+
+    else:
+        error ="User not logged in!"
+        return render_template("login.html", error=error)
+      
 # Route to change email
 @app.route('/change_email', methods=['GET', 'POST'])
 def change_email():
@@ -410,7 +435,7 @@ def book_appointment():
                 cursor= db.cursor()
 
                 # Create the SQL statement
-                sql = "INSERT INTO appointments (user_id, date, time) VALUES (%s, %s, %s, %s, %s)"
+                sql = "INSERT INTO appointments (user_id, date, time) VALUES (%s, %s, %s)"
 
                 # Execute the query with form data
                 cursor.execute(sql, (user_id, date, time))
