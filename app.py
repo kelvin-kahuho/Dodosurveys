@@ -21,16 +21,16 @@ def get_db_connection():
     conn = mysql.connector.connect(
         host='localhost',
         user='root',
-        password='heartattack2023',
+        password='heartattack2023', # Dodosurvey2024#
         database='Dodosurveys'
     )
     return conn
 
 
 # Set environment variables for your credentials
-account_sid = "AC3896db49c2fe15d42dec509aff93902e"
-auth_token = "04e3f304bff8ead73fe8e5169cad97b0"
-verify_sid = "VA0c28c79be60fb0fae46b6eba42e96c21"
+account_sid = "AC23a06e5f76dc3875f574aeb6ec2e1da5"
+auth_token = "4eea1e7181f75a572b20ebae050a5a35"
+verify_sid = "VA27a2bdc06461ad48b7088af445798aa6"
 client = Client(account_sid, auth_token)
 
 
@@ -89,7 +89,7 @@ def register():
         phone_number = request.form["phone_number"]
         # Server-side validation for US phone number format
         if not is_valid_us_phone_number(phone_number):
-            error = "Invalid phone number format. Please use the format xxx-xxx-xxxx."
+            error = "Invalid phone number format. Please use the format +1-xxx-xxx-xxxx."
             return render_template("signup.html", error=error)
         
 
@@ -148,7 +148,7 @@ def register():
 #Phone number entered is usa's
 def is_valid_us_phone_number(phone_number):
     # Regular expression for US phone number format xxx-xxx-xxxx
-    pattern = re.compile(r'^\d{3}-\d{3}-\d{4}$')
+    pattern = re.compile(r'^\+1-\d{3}-\d{3}-\d{4}$')
     return pattern.match(phone_number) is not None
 
 
