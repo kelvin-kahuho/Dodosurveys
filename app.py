@@ -44,25 +44,35 @@ def send_verification_code(phone_number):
     
 @app.route("/verify_code", methods=["POST"])
 def verify_code():
-    verification_sid = session["verification_sid"]
-    if verification_sid:
-        code = request.form["verification_code"]
-        verification_check = client.verify.v2.services(verify_sid) \
-            .verification_checks \
-            .create(to=session["phone_number"], code=code)
-        if verification_check.status == "approved":
+    if "user_id" in session:
+            user_id = session['user_id']
             db = get_db_connection()
             cursor = db.cursor()
-            user_id = session['user_id']
-            cursor.execute("UPDATE users SET phone_verified=1 WHERE id=%s", (user_id,))
-            db.commit()
-            success = "Phone number verified!"
-            return redirect(url_for("dashboard"))
-        else:
-            error = "Invalid code. Please try again."
-            return render_template('verify_popup.html', error=error)
+            verification_sid = session["verification_sid"]
+            if verification_sid:
+                code = request.form["verification_code"]
+                verification_check = client.verify.v2.services(verify_sid) \
+                    .verification_checks \
+                    .create(to=session["phone_number"], code=code)
+                if verification_check.status == "approved":
+                    user_id = session['user_id']
+                    cursor.execute("UPDATE users SET phone_verified=1 WHERE id=%s", (user_id,))
+                    db.commit()
+                    success = "Phone number verified!"
+                    print(success)
+                    return redirect(url_for("dashboard"))
+                else:
+                    #get users data
+                    cursor.execute("SELECT * FROM users WHERE id=%s", (user_id,))
+                    user = cursor.fetchone()
+
+                    error = "Invalid code. Please try again."
+                    return render_template('verify_popup.html', error=error, user=user)
+            else:
+                return redirect(url_for("dashboard"))            
     else:
-        return redirect(url_for("dashboard"))
+        error ="User not logged in!"
+        return render_template("login.html", error=error)
 
 
 #Defining routes
@@ -436,11 +446,27 @@ def book_appointment():
 
                 # Create the SQL statement
                 sql = "INSERT INTO appointments (user_id, date, time) VALUES (%s, %s, %s)"
-
-                # Execute the query with form data
                 cursor.execute(sql, (user_id, date, time))
                 db.commit()
 
+                #get users data
+                cursor = db.cursor()
+                cursor.execute("SELECT * FROM users WHERE id=%s", (user_id,))
+                user = cursor.fetchone()
+
+                #Phone numbers
+                user_phone_number= f'{user[3]}'
+                admin_phone_number= '+254741559592'
+
+                #Send Message to admin
+                message_body2= f'Name: {user[1]}, Email: {user[2]}, Phone: {user[3]}, State: {user[9]}, City: {user[10]}. Appointment date is {date}, at {time}'
+                message2 = client.messages.create(
+                messaging_service_sid='MG5adf5ff619733db07535802d31be77e3',
+                body=message_body2,
+                to=admin_phone_number
+                )
+                print(message2.sid)
+                
                 success = 'Appointment Booked Successfully'
                 return render_template('book_appointment.html', success=success)
         
